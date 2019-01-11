@@ -15,6 +15,6 @@ def palindromeRearranging(a):
 print(palindromeRearranging("cccaaa"))
 
 
-def palindromeRearranging(inputString):
+# def palindromeRearranging(inputString):
 
-    return sum([inputString.count(i) % 2 for i in set(inputString)]) <= 1
+#     return sum([inputString.count(i) % 2 for i in set(inputString)]) <= 1
