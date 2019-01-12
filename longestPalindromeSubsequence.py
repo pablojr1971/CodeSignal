@@ -1,34 +1,47 @@
 def longestPalindromeSubsequence(input):
-    # freq = {}
-    # for c in a:
-    #     freq[c] = a.count(c)
-
-    # a=[x for x in input if input.count(x)>=2 and x !=' ']
-    a = [x for x in input if x != ' ']
+    a = input.replace(" ", "")
     print(a)
-
     nl = []
 
-    for c in a:
-        pal = ''
-        plen = 0
+    def pal_recursive(accumulated_pal):
 
-        if str(a).rfind(c) == str(a).index(c):
+        # Base case
+        # Return the final state
+        if len(accumulated_pal) == 0:
+            return ""
+
+        if len(accumulated_pal) == 1:
+            return accumulated_pal
+
+        if len(accumulated_pal) == 2:
+            if accumulated_pal[0] != accumulated_pal[1]:
+                return accumulated_pal[0]
+            else:
+                return accumulated_pal
+
+        # Recursive case
+        cha = accumulated_pal[0]
+        first_c = 0  # accumulated_pal.index(cha)
+        last_c = accumulated_pal.rfind(cha)
+
+        if first_c == last_c:  # unique character
             if nl == []:
-                pal = c
+                nl.append(cha)
 
-        else:
-            pal=pal[:len(pal)//2] + c*2 + pal[(len(pal)//2+2):]
-            
-        
-        nl.append(pal)
+            # accumulated_pal = accumulated_pal[1:]
+            # pal_recursive(accumulated_pal[1:])
+            first_c += 1
 
+        nl.append(accumulated_pal[first_c] + pal_recursive(
+            accumulated_pal[first_c+1:last_c]) + accumulated_pal[last_c])
+
+    # while len(a) > 0:
+    #     pal_recursive(a)
+    #     a = a[1:]
+    pal_recursive(a)
     print(nl)
-    print(pal)
-    print(plen)
-
-    # return len([v for v in freq.values() if v % 2 != 0]) <= 1
 
 
 # print(longestPalindromeSubsequence('ABCCBDDCE'))
-print(longestPalindromeSubsequence('RECKLESS IS HE'))
+#print(longestPalindromeSubsequence('REESS IS HE'))
+print(longestPalindromeSubsequence('PAB AAB R'))
